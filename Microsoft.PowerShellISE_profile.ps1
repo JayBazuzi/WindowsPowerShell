@@ -1,0 +1,3 @@
+Import-Module IsePack
+
+$env:TFS_IGNORESTDOUTREDIRECT=1
