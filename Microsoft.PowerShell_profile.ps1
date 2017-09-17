@@ -1,5 +1,11 @@
-function GetNextHistoryItemId
-{
+# If this fails, try
+# PS> PowerShellGet\Install-Module posh-git -Scope CurrentUser
+Import-Module posh-git
+$global:GitPromptSettings.BeforeText = '['
+$global:GitPromptSettings.AfterText  = '] '
+$global:GitPromptSettings.DefaultPromptSuffix = '`n$(''>'' * ($nestedPromptLevel + 1)) '
+
+function GetNextHistoryItemId {
     if (Get-History) {
         return (Get-History | select -Last 1).id + 1
     } else {
@@ -7,8 +13,7 @@ function GetNextHistoryItemId
     }
 }
 
-function GetLastHistoryItemDuration
-{
+function GetLastHistoryItemDuration {
     $lastHistoryItem = Get-History | select -Last 1
     if ($lastHistoryItem) {
         return ($lastHistoryItem.EndExecutionTime - $lastHistoryItem.StartExecutionTime)
@@ -17,8 +22,9 @@ function GetLastHistoryItemDuration
     }
 }
 
-function prompt
-{
+function prompt {
+    $origLastExitCode = $LASTEXITCODE
+    
     # if the last command didn't give us a newline, take one.
     if ($host.ui.RawUI.CursorPosition.X) { Write-Host }
 
@@ -28,16 +34,17 @@ function prompt
         $delayMessage = " {0:00}:{1:00}:{2:00}" -f ($lastHistoryItemDuration.Hours, $lastHistoryItemDuration.Minutes, $lastHistoryItemDuration.Seconds)
     }
 
-    # make a red line between commands, with the delay at the end.
-    $width = ($Host.UI.RawUI.WindowSize.Width - 2 - $(Get-Location).ToString().Length) - $delayMessage.Length
+    Write-VcsStatus
+    Write-Host -NoNewline " "
     Write-Host -NoNewline -ForegroundColor Red $(Get-Location)
     Write-Host -NoNewline " "
+    $width = ($Host.UI.RawUI.WindowSize.Width - 2 - $host.ui.RawUI.CursorPosition.X) - $delayMessage.Length
     Write-Host -NoNewline -ForegroundColor Red (New-Object System.String @('-',$width))
     Write-Host -NoNewline -ForegroundColor Yellow $delayMessage
+
     Write-Host ""
 
-    $global:LASTEXITCODE = $realLASTEXITCODE
-    "#$(GetNextHistoryItemId) PS> "
+    $global:LASTEXITCODE = $origLastExitCode
 }
 
 function .. { cd .. }
