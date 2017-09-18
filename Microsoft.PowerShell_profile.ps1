@@ -1,11 +1,12 @@
 Update-Module -WhatIf
 
-# If this fails, try
-# PS> PowerShellGet\Install-Module posh-git -Scope CurrentUser
+Import-Module PSReadLine
 Import-Module posh-git
+
 $global:GitPromptSettings.BeforeText = '['
 $global:GitPromptSettings.AfterText  = '] '
 $global:GitPromptSettings.DefaultPromptSuffix = '`n$(''>'' * ($nestedPromptLevel + 1)) '
+
 
 function GetNextHistoryItemId {
     if (Get-History) {
