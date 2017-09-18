@@ -1,7 +1,5 @@
 $env:TABNINJA_CACHED_BUILD="OFF"
 
-Update-Module -WhatIf
-
 Import-Module PSReadLine
 Import-Module posh-git
 
