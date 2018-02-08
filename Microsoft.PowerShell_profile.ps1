@@ -62,6 +62,7 @@ sal gsub                tableau-tools/pipeline/gsub.py
 sal sourceSync          tableau-tools/SourceAnalyzers/sourceSync.py
 sal format_opened       tableau-1.3/tools/clang_format_opened.py 
 sal rtr                 tableau-1.3/build/Release-x64/tableau.exe
+sal rtd                 tableau-1.3/build/Debug-x64/tableau.exe
 
 function Exec-Block([string]$cmd) {
     Write-Host -ForegroundColor Yellow "$cmd"
