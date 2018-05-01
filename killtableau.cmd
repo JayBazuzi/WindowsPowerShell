@@ -23,5 +23,6 @@ for %%i in (
     ruby.exe
     tabadmin.exe
     hostedproxy.exe
-    remoteagentserver.exe    
+    remoteagentserver.exe
+    appzookeeper.exe
 ) do taskkill /f /im %%i
