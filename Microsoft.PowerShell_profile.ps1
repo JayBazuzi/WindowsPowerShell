@@ -78,7 +78,7 @@ function Exec-Block([string]$cmd) {
 
 function ttt($modules, $test, $config='Release')  {
     $modules | foreach {
-        Exec-Block "tube --quiet --target test_$_"
+        Exec-Block "tube --target test_$_ --config $config"
     }
 
     if (!$?) {
