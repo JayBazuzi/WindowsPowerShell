@@ -56,13 +56,18 @@ $env:path += ';' + (split-path $profile)
 
 ### tableau stuff
 
-sal tube                tableau-tools/pipeline/tube.py
-sal tcproof             tableau-tools/pipeline/tcproof.py
-sal gsub                tableau-tools/pipeline/gsub.py
-sal sourceSync          tableau-tools/SourceAnalyzers/sourceSync.py
-sal format_opened       tableau-1.3/tools/clang_format_opened.py 
-sal rtr                 tableau-1.3/build/Release-x64/tableau.exe
-sal rtd                 tableau-1.3/build/Debug-x64/tableau.exe
+sal tube                        tableau-tools/pipeline/tube.py
+sal sourceSync                  tableau-tools/SourceAnalyzers/sourceSync.py
+sal format_opened               tableau-1.3/tools/clang_format_opened.py
+sal tablint                     tableau-1.3/tools/tablint.py
+
+sal sparse_branch_create        tableau-1.3/tools/sparse_branch_create.py
+sal sparse_branch_pull_request  tableau-1.3/tools/sparse_branch_pull_request.cmd
+sal sparse_branch_merge_down    tableau-1.3/tools/sparse_branch_merge_down.cmd
+
+sal rtr                         tableau-1.3/build/Release-x64/tableau.exe
+sal rtd                         tableau-1.3/build/Debug-x64/tableau.exe
+
 
 function Exec-Block([string]$cmd) {
     Write-Host -ForegroundColor Yellow "$cmd"
