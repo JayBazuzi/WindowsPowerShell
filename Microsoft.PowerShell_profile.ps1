@@ -3,6 +3,8 @@ $env:TABNINJA_CACHED_BUILD="OFF"
 Import-Module PSReadLine
 Import-Module posh-git
 
+Set-PSReadlineOption -BellStyle None
+
 $global:GitPromptSettings.BeforeText = '['
 $global:GitPromptSettings.AfterText  = '] '
 $global:GitPromptSettings.DefaultPromptSuffix = '`n$(''>'' * ($nestedPromptLevel + 1)) '
