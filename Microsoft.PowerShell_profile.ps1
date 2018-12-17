@@ -70,6 +70,8 @@ sal sparse_branch_merge_down    tableau-1.3/tools/sparse_branch_merge_down.cmd
 sal rtr                         tableau-1.3/build/Release-x64/tableau.exe
 sal rtd                         tableau-1.3/build/Debug-x64/tableau.exe
 
+### disable backspace beep
+Set-PSReadlineOption -BellStyle None
 
 function Exec-Block([string]$cmd) {
     Write-Host -ForegroundColor Yellow "$cmd"
