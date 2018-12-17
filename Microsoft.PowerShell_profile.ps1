@@ -1,5 +1,3 @@
-$env:TABNINJA_CACHED_BUILD="OFF"
-
 Import-Module PSReadLine
 Import-Module posh-git
 
