@@ -93,6 +93,6 @@ function ttt($modules, $test, $config='Release')  {
     }
 
     $modules | foreach {
-        Exec-Block ([scriptblock]::Create(" & tableau-1.3\build\$config-x64\test_$_.exe $test" ))
+        Exec-Block ([scriptblock]::Create(" & tableau-1.3\build\$config-x64\test_$_.exe '$test'" ))
     }
 }
