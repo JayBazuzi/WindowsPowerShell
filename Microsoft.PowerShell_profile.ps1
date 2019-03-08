@@ -54,45 +54,6 @@ function .. { cd .. }
 
 $env:path += ';' + (split-path $profile)
 
-### tableau stuff
-
-sal tube                        tableau-tools/pipeline/tube.py
-sal sourceSync                  tableau-tools/SourceAnalyzers/sourceSync.py
-sal format_opened               tableau-1.3/tools/clang_format_opened.py
-sal tablint                     tableau-1.3/tools/tablint.py
-
-sal sparse_branch_create        tableau-1.3/tools/sparse_branch_create.py
-sal sparse_branch_pull_request  tableau-1.3/tools/sparse_branch_pull_request.cmd
-sal sparse_branch_merge_down    tableau-1.3/tools/sparse_branch_merge_down.cmd
-
-sal rtr                         tableau-1.3/build/Release-x64/tableau.exe
-sal rtd                         tableau-1.3/build/Debug-x64/tableau.exe
-
 ### disable backspace beep
 Set-PSReadlineOption -BellStyle None
 
-function Exec-Block([string]$cmd) {
-    Write-Host -ForegroundColor Yellow "$cmd"
-    & ([scriptblock]::Create($cmd))
-
-    # Need to check both of these cases for errors as they represent different items
-    # - $?: did the powershell script block throw an error
-    # - $lastexitcode: did a windows command executed by the script block end in error
-    if ((-not $?) -or ($lastexitcode -ne 0)) {
-        throw "Command failed to execute: $cmd"
-    } 
-}
-
-function ttt($modules, $test, $config='Release')  {
-    $modules | foreach {
-        Exec-Block "tube --target test_$_ --config $config"
-    }
-
-    if (!$?) {
-        exit
-    }
-
-    $modules | foreach {
-        Exec-Block ([scriptblock]::Create(" & tableau-1.3\build\$config-x64\test_$_.exe '$test'" ))
-    }
-}
